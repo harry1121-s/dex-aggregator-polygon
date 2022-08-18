@@ -30,16 +30,19 @@ export function handlePairCreated(event: MMPairCreated): void {
     if(tokenA === null) {
       tokenA = new Token(_tokenA.toHex());
       if(_namecallA.reverted){
+        tokenA.name = "N/A";
         log.error("PE - Bind Call Error: Function Name for Token: {}",[_tokenA.toHexString()]);
       } else {
         tokenA.name = _namecallA.value;
       }
       if(_symbolcallA.reverted){
+        tokenA.symbol = "N/A";
         log.error("PE - Bind Call Error: Function Name for Token: {}",[_tokenA.toHexString()]);
       } else {
         tokenA.symbol = _symbolcallA.value;
       }
       if(_decimalcallA.reverted){
+        tokenA.decimal = BigInt.fromI32(0);
         log.error("PE - Bind Call Error: Function Name for Token: {}",[_tokenA.toHexString()]);
       } else {
         tokenA.decimal = BigInt.fromI32(_decimalcallA.value);
@@ -60,15 +63,18 @@ export function handlePairCreated(event: MMPairCreated): void {
       tokenB = new Token(_tokenB.toHex());
       if(_namecallB.reverted){
         log.error("PE - Bind Call Error: Function Name for Token: {}",[_tokenA.toHexString()]);
+        tokenB.name = "N/A";
       } else {
         tokenB.name = _namecallB.value;
       }
       if(_symbolcallB.reverted){
+        tokenB.symbol = "N/A";
         log.error("PE - Bind Call Error: Function Name for Token: {}",[_tokenA.toHexString()]);
       } else {
         tokenB.symbol = _symbolcallB.value;
       }
       if(_decimalcallB.reverted){
+        tokenB.decimal = BigInt.fromI32(0);
         log.error("PE - Bind Call Error: Function Name for Token: {}",[_tokenA.toHexString()]);
       } else {
         tokenB.decimal = BigInt.fromI32(_decimalcallB.value);
