@@ -45,25 +45,6 @@ export class Quickswap extends ethereum.SmartContract {
     return new Quickswap("Quickswap", address);
   }
 
-  INIT_CODE_HASH(): Bytes {
-    let result = super.call("INIT_CODE_HASH", "INIT_CODE_HASH():(bytes32)", []);
-
-    return result[0].toBytes();
-  }
-
-  try_INIT_CODE_HASH(): ethereum.CallResult<Bytes> {
-    let result = super.tryCall(
-      "INIT_CODE_HASH",
-      "INIT_CODE_HASH():(bytes32)",
-      []
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBytes());
-  }
-
   allPairs(param0: BigInt): Address {
     let result = super.call("allPairs", "allPairs(uint256):(address)", [
       ethereum.Value.fromUnsignedBigInt(param0)
@@ -305,40 +286,6 @@ export class SetFeeToSetterCall__Outputs {
   _call: SetFeeToSetterCall;
 
   constructor(call: SetFeeToSetterCall) {
-    this._call = call;
-  }
-}
-
-export class SetSwapFeeCall extends ethereum.Call {
-  get inputs(): SetSwapFeeCall__Inputs {
-    return new SetSwapFeeCall__Inputs(this);
-  }
-
-  get outputs(): SetSwapFeeCall__Outputs {
-    return new SetSwapFeeCall__Outputs(this);
-  }
-}
-
-export class SetSwapFeeCall__Inputs {
-  _call: SetSwapFeeCall;
-
-  constructor(call: SetSwapFeeCall) {
-    this._call = call;
-  }
-
-  get _pair(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get _swapFee(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-}
-
-export class SetSwapFeeCall__Outputs {
-  _call: SetSwapFeeCall;
-
-  constructor(call: SetSwapFeeCall) {
     this._call = call;
   }
 }

@@ -1,7 +1,7 @@
 import { BigInt } from "@graphprotocol/graph-ts"
-import { MMFinance, PairCreated } from "../generated/MMFinance/MMFinance"
+import { MMFinance, PairCreated as MMPairCreated} from "../generated/MMFinance/MMFinance";
+import { PairCreated as QuickSwapCreated } from "../generated/Quickswap/Quickswap";
 import { Quickswap } from "../generated/Quickswap/Quickswap"
-// import { ExampleEntity } from "../generated/schema"
 import { Pair,Token, Reserve } from "../generated/schema"
 import {
   ERC20
@@ -10,8 +10,7 @@ import { log } from '@graphprotocol/graph-ts'
 
 const MM_Finance = "0x7cFB780010e9C861e03bCbC7AC12E013137D47A5";
 
-export function handlePairCreated(event: PairCreated): void {
-  try {
+export function handlePairCreated(event: MMPairCreated): void {
     let _id = event.params.pair;
     let _tokenA = event.params.token0;
     let _tokenB = event.params.token1;
@@ -90,13 +89,9 @@ export function handlePairCreated(event: PairCreated): void {
       pair.router = _router;
     }
     pair.save();
-  } catch (error) {
-    log.error("Pair Creation Indexing Error: {}",[event.params.pair.toHexString()]);
-  }
 }
 
-export function handlePairCreatedQuickswap(event: PairCreated): void {
-  try {
+export function handlePairCreatedQuickswap(event: QuickSwapCreated): void {
     let _id = event.params.pair;
     let _tokenA = event.params.token0;
     let _tokenB = event.params.token1;
@@ -175,8 +170,5 @@ export function handlePairCreatedQuickswap(event: PairCreated): void {
       pair.router = _router;
     }
     pair.save();
-  } catch (error) {
-    log.error("Pair Creation Indexing Error: {}",[event.params.pair.toHexString()]);
-  }
 }
 
