@@ -11,7 +11,8 @@ import { log } from '@graphprotocol/graph-ts'
 const MM_Finance = "0x7cFB780010e9C861e03bCbC7AC12E013137D47A5";
 
 export function handlePairCreated(event: PairCreated): void {
-  let _id = event.params.pair;
+  try {
+    let _id = event.params.pair;
     let _tokenA = event.params.token0;
     let _tokenB = event.params.token1;
     let _exchange = "MM Finance";
@@ -89,10 +90,14 @@ export function handlePairCreated(event: PairCreated): void {
       pair.router = _router;
     }
     pair.save();
+  } catch (error) {
+    log.error("Pair Creation Indexing Error: {}",[event.params.pair.toHexString()]);
+  }
 }
 
 export function handlePairCreatedQuickswap(event: PairCreated): void {
-  let _id = event.params.pair;
+  try {
+    let _id = event.params.pair;
     let _tokenA = event.params.token0;
     let _tokenB = event.params.token1;
     let _exchange = "Quickswap";
@@ -170,5 +175,8 @@ export function handlePairCreatedQuickswap(event: PairCreated): void {
       pair.router = _router;
     }
     pair.save();
+  } catch (error) {
+    log.error("Pair Creation Indexing Error: {}",[event.params.pair.toHexString()]);
+  }
 }
 
