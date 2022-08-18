@@ -42,7 +42,7 @@ export function handlePairCreated(event: MMPairCreated): void {
       if(_decimalcallA.reverted){
         log.error("PE - Bind Call Error: Function Name for Token: {}",[_tokenA.toHexString()]);
       } else {
-        tokenA.decimal = BigInt.fromI64(_decimalcallA.value);
+        tokenA.decimal = BigInt.fromI32(_decimalcallA.value);
       }
       // tokenA.tokenId = _tokenB.toHexString();
     }
@@ -71,7 +71,7 @@ export function handlePairCreated(event: MMPairCreated): void {
       if(_decimalcallB.reverted){
         log.error("PE - Bind Call Error: Function Name for Token: {}",[_tokenA.toHexString()]);
       } else {
-        tokenB.decimal = BigInt.fromI64(_decimalcallB.value);
+        tokenB.decimal = BigInt.fromI32(_decimalcallB.value);
       }
       // tokenB.tokenId = tokenA.id;
     }
