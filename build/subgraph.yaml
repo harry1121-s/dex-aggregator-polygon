@@ -1,6 +1,6 @@
 specVersion: 0.0.2
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: MMFinance
@@ -17,13 +17,13 @@ dataSources:
         - PairCreated
       abis:
         - name: MMFinance
-          file: ./abis/MMFinance.json
+          file: MMFinance/abis/MMFinance.json
         - name: ERC20
-          file: ./abis/ERC20.json
+          file: MMFinance/abis/ERC20.json
       eventHandlers:
         - event: PairCreated(indexed address,indexed address,address,uint256)
           handler: handlePairCreated
-      file: ./src/mapping.ts
+      file: MMFinance/MMFinance.wasm
   - kind: ethereum/contract
     name: Quickswap
     network: matic
@@ -39,10 +39,10 @@ dataSources:
         - PairCreated
       abis:
         - name: Quickswap
-          file: ./abis/Quickswap.json
+          file: Quickswap/abis/Quickswap.json
         - name: ERC20
-          file: ./abis/ERC20.json
+          file: Quickswap/abis/ERC20.json
       eventHandlers:
         - event: PairCreated(indexed address,indexed address,address,uint256)
           handler: handlePairCreated
-      file: ./src/mapping.ts
+      file: MMFinance/MMFinance.wasm
